@@ -1,5 +1,6 @@
 import TodoItem from "@/components/TodoItem";
 import { getTodos, insertTodo } from "@/repository/todoRepository";
+import { Todo } from "@/types/todo";
 import { useState } from "react";
 import {
   Button,
@@ -13,7 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function HomeScreen() {
   const [text, setText] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   const loadData = async () => {
     const data = await getTodos();

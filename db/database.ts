@@ -1,18 +1,20 @@
 import * as SQLite from "expo-sqlite";
 
-let db: SQLite.SQLiteDatabase;
+let db: SQLite.SQLiteDatabase | null = null;
 
-export const initDB = async () => {
-  db = await SQLite.openDatabaseAsync("app.db");
+export const getDB = async () => {
+  if (!db) {
+    db = await SQLite.openDatabaseAsync("app.db");
 
-  await db.execAsync(`
-    CREATE TABLE IF NOT EXISTS todos (
-      id TEXT PRIMARY KEY,
-      title TEXT,
-      status TEXT,
-      created_at TEXT
-    );
-  `);
+    await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS todos (
+        id TEXT PRIMARY KEY,
+        title TEXT,
+        status TEXT,
+        created_at TEXT
+      );
+    `);
+  }
+
+  return db;
 };
-
-export const getDB = () => db;

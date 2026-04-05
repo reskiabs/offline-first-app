@@ -9,8 +9,6 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
-// ✅ TAMBAHAN
-import { initDB } from "@/db/database";
 import { useSync } from "@/hooks/useSync";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
@@ -30,7 +28,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     const setup = async () => {
-      await initDB();
       setReady(true);
     };
 
