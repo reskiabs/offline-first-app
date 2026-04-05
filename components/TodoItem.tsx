@@ -7,7 +7,8 @@ export default function TodoItem({ item }: any) {
       <Text
         style={[
           styles.status,
-          item.status === "synced" ? styles.synced : styles.pending,
+          item.status === "synced" && { color: "green" },
+          item.status === "pending" && { color: "orange" },
         ]}
       >
         {item.status}

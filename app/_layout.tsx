@@ -20,10 +20,10 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
-  // ✅ state untuk nunggu DB siap
+  // state untuk nunggu DB siap
   const [ready, setReady] = useState(false);
 
-  // ✅ aktifkan auto sync
+  // aktifkan auto sync
   useSync();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function RootLayout() {
     setup();
   }, []);
 
-  // ⛔ BLOCK render sebelum DB siap
+  // BLOCK render sebelum DB siap
   if (!ready) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
