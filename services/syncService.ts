@@ -24,6 +24,5 @@ export const syncTodos = async () => {
     }
   }
 
-  // 🔥 TRIGGER UI UPDATE
   emit();
 };
