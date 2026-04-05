@@ -2,7 +2,7 @@ import TodoItem from "@/components/TodoItem";
 import { useNetworkStatus } from "@/hooks/useNetworkStatus";
 import { getTodos, insertTodo } from "@/repository/todoRepository";
 import { Todo } from "@/types/todo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   FlatList,
@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { subscribe } from "@/utils/eventBus";
 import * as Crypto from "expo-crypto";
 
 export const generateUUID = async () => {
@@ -23,7 +24,6 @@ export default function HomeScreen() {
   const [text, setText] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
   const isOnline = useNetworkStatus();
-  console.log("isOnline:", isOnline);
 
   const loadData = async () => {
     const data = await getTodos();
@@ -43,6 +43,15 @@ export default function HomeScreen() {
     setText("");
     loadData();
   };
+
+  useEffect(() => {
+    loadData();
+
+    subscribe(() => {
+      console.log("🔄 Refresh UI dari sync");
+      loadData();
+    });
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

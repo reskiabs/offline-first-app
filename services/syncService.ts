@@ -1,9 +1,8 @@
 import { getPendingTodos, updateStatus } from "@/repository/todoRepository";
+import { emit } from "../utils/eventBus";
 
 export const syncTodos = async () => {
   const todos = await getPendingTodos();
-
-  console.log("📦 Pending todos:", todos.length);
 
   for (let todo of todos) {
     try {
@@ -24,4 +23,7 @@ export const syncTodos = async () => {
       console.log("❌ Sync gagal:", err);
     }
   }
+
+  // 🔥 TRIGGER UI UPDATE
+  emit();
 };

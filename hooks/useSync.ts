@@ -6,7 +6,7 @@ export const useSync = () => {
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (state.isConnected) {
-        console.log("Online → syncing...");
+        console.log("🌐 ONLINE → trigger sync");
         syncTodos();
       }
     });
